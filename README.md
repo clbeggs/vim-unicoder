@@ -85,7 +85,7 @@ the insertion.
  Name | Default | Description
 ------|---------|-------------
 `g:unicoder_command_abbreviations` | `1` | Have these abbreviations work in the command and search lines.
-`g:unicoder_exclude_filetypes` | `['tex', 'latex', 'plaintex']` | File types in which these abbreviations will not work.
+`g:unicoder_active_filetypes` | `['python', 'py']` | Only file types in which these abbreviations will work.
 
 ## List of abbreviations
 

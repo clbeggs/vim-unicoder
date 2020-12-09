@@ -4,9 +4,10 @@ endif
 let g:loaded_unicoder = 1
 
 " Defaults {{{
-if !exists('g:unicoder_exclude_filetypes')
-  let g:unicoder_exclude_filetypes = ['tex', 'latex', 'plaintex']
+if !exists('g:unicoder_active_filetypes')
+  let g:unicoder_active_filetypes = ['python', 'py']
 endif
+
 
 if !exists('g:unicoder_command_abbreviations')
   let g:unicoder_command_abbreviations = 1
@@ -45,7 +46,7 @@ command! -nargs=+ Noprefixab call s:Prefixab('<buffer>', '', <f-args>)
 
 " Initialization
 autocmd WinEnter,BufEnter *
-  \ if index(g:unicoder_exclude_filetypes, &ft) < 0
+  \ if index(g:unicoder_active_filetypes, &ft) > -1
   \ | call s:setup_abbreviations()
   \ | endif
 
@@ -56,31 +57,6 @@ function! s:setup_abbreviations()
 
   " Greek {{{
   " Uppercase greek {{{
-  Prefixab  \\ GA     Α
-  Prefixab  \\ GB     Β
-  Prefixab  \\ GG     Γ
-  Prefixab  \\ GD     Δ
-  Prefixab  \\ GE     Ε
-  Prefixab  \\ GZ     Ζ
-  Prefixab  \\ GH     Η
-  Prefixab  \\ GTH    Θ
-  Prefixab  \\ GI     Ι
-  Prefixab  \\ GK     Κ
-  Prefixab  \\ GL     Λ
-  Prefixab  \\ GM     Μ
-  Prefixab  \\ GN     Ν
-  Prefixab  \\ GX     Ξ
-  Prefixab  \\ GO     Ο
-  Prefixab  \\ GP     Π
-  Prefixab  \\ GR     Ρ
-  Prefixab  \\ GS     Σ
-  Prefixab  \\ GT     Τ
-  Prefixab  \\ GU     Υ
-  Prefixab  \\ GF     Φ
-  Prefixab  \\ GC     Χ
-  Prefixab  \\ GPS    Ψ
-  Prefixab  \\ GW     Ω
-
   Prefixab  \\ Alpha       Α
   Prefixab  \\ Beta        Β
   Prefixab  \\ Gamma       Γ
@@ -106,32 +82,6 @@ function! s:setup_abbreviations()
   Prefixab  \\ Psi         Ψ
   Prefixab  \\ Omega       Ω
   " }}}
-
-  " Lowercase greek {{{
-  Prefixab  \\ ga     α
-  Prefixab  \\ gb     β
-  Prefixab  \\ gg     γ
-  Prefixab  \\ gd     δ
-  Prefixab  \\ ge     ε
-  Prefixab  \\ gz     ζ
-  Prefixab  \\ gh     η
-  Prefixab  \\ gth    θ
-  Prefixab  \\ gi     ι
-  Prefixab  \\ gk     κ
-  Prefixab  \\ gl     λ
-  Prefixab  \\ gm     μ
-  Prefixab  \\ gn     ν
-  Prefixab  \\ gx     ξ
-  Prefixab  \\ go     ο
-  Prefixab  \\ gp     π
-  Prefixab  \\ gr     ρ
-  Prefixab  \\ gs     σ
-  Prefixab  \\ gt     τ
-  Prefixab  \\ gu     υ
-  Prefixab  \\ gf     φ
-  Prefixab  \\ gc     χ
-  Prefixab  \\ gps    ψ
-  Prefixab  \\ gw     ω
 
   Prefixab  \\ alpha       α
   Prefixab  \\ beta        β
@@ -162,51 +112,10 @@ function! s:setup_abbreviations()
 
   " Shapes {{{
   Prefixab  \\ box         □
-  Prefixab  \\ bbox        ■
+  Prefixab  \\ qed         ■
   Prefixab  \\ sbox        ▫
-  Prefixab  \\ sbbox       ▪
+  Prefixab  \\ sqed        ▪
 
-  Prefixab  \\ square      □
-  Prefixab  \\ bsquare     ■
-  Prefixab  \\ ssquare     ▫
-  Prefixab  \\ sbsquare    ▪
-
-  Prefixab  \\ diamond     ◇
-  Prefixab  \\ bdiamond    ◆
-  Prefixab  \\ lozenge     ◊
-
-  Prefixab  \\ circ        ○
-  Prefixab  \\ circle      ○
-  Prefixab  \\ bcircle     ●
-  Prefixab  \\ dcircle     ◌
-
-  Prefixab  \\ triangle    △
-  Prefixab  \\ btriangle   ▲
-
-  Prefixab  \\ skull       ☠
-  Prefixab  \\ danger      ☡
-  Prefixab  \\ radiation   ☢
-  Prefixab  \\ biohazard   ☣
-  Prefixab  \\ yinyang     ☯
-  Prefixab  \\ frownie     ☹
-  Prefixab  \\ smiley      ☺
-  Prefixab  \\ blacksmiley ☻
-  Prefixab  \\ sun         ☼
-  Prefixab  \\ rightmoon   ☽
-  Prefixab  \\ leftmoon    ☾
-  Prefixab  \\ female      ♀
-  Prefixab  \\ male        ♂
-  " }}}
-
-  " Miscellaneous {{{
-  Prefixab  \\ dagger      †
-  Prefixab  \\ ddager      ‡
-  Prefixab  \\ prime       ′
-  Prefixab  \\ second      ″
-  Prefixab  \\ third       ‴
-  Prefixab  \\ fourth      ⁗
-  Prefixab  \\ euro        €
-  " }}}
 
   " Math {{{
   Prefixab  \\ pm          ±
@@ -672,91 +581,6 @@ function! s:setup_abbreviations()
   Noprefixab \^=           ⁼
   Noprefixab \^(           ⁽
   Noprefixab \^)           ⁾
-  " }}}
 
-  " Circled {{{
-
-  " Numbers {{{
-  Noprefixab \(0)          ⓪
-  Noprefixab \(1)          ①
-  Noprefixab \(2)          ②
-  Noprefixab \(3)          ③
-  Noprefixab \(4)          ④
-  Noprefixab \(5)          ⑤
-  Noprefixab \(6)          ⑥
-  Noprefixab \(7)          ⑦
-  Noprefixab \(8)          ⑧
-  Noprefixab \(9)          ⑨
-  Noprefixab \(10)         ⑩
-  Noprefixab \(11)         ⑪
-  Noprefixab \(12)         ⑫
-  Noprefixab \(13)         ⑬
-  Noprefixab \(14)         ⑭
-  Noprefixab \(15)         ⑮
-  Noprefixab \(16)         ⑯
-  Noprefixab \(17)         ⑰
-  Noprefixab \(18)         ⑱
-  Noprefixab \(19)         ⑲
-  Noprefixab \(20)         ⑳
-  " }}}
-
-  " Uppercase {{{
-  Noprefixab \(A)          Ⓐ
-  Noprefixab \(B)          Ⓑ
-  Noprefixab \(C)          Ⓒ
-  Noprefixab \(D)          Ⓓ
-  Noprefixab \(E)          Ⓔ
-  Noprefixab \(F)          Ⓕ
-  Noprefixab \(G)          Ⓖ
-  Noprefixab \(H)          Ⓗ
-  Noprefixab \(I)          Ⓘ
-  Noprefixab \(J)          Ⓙ
-  Noprefixab \(K)          Ⓚ
-  Noprefixab \(L)          Ⓛ
-  Noprefixab \(M)          Ⓜ
-  Noprefixab \(N)          Ⓝ
-  Noprefixab \(O)          Ⓞ
-  Noprefixab \(P)          Ⓟ
-  Noprefixab \(Q)          Ⓠ
-  Noprefixab \(R)          Ⓡ
-  Noprefixab \(S)          Ⓢ
-  Noprefixab \(T)          Ⓣ
-  Noprefixab \(U)          Ⓤ
-  Noprefixab \(V)          Ⓥ
-  Noprefixab \(W)          Ⓦ
-  Noprefixab \(X)          Ⓧ
-  Noprefixab \(Y)          Ⓨ
-  Noprefixab \(Z)          Ⓩ
-  " }}}
-
-  " Lowercase {{{
-  Noprefixab \(a)          ⓐ
-  Noprefixab \(b)          ⓑ
-  Noprefixab \(c)          ⓒ
-  Noprefixab \(d)          ⓓ
-  Noprefixab \(e)          ⓔ
-  Noprefixab \(f)          ⓕ
-  Noprefixab \(g)          ⓖ
-  Noprefixab \(h)          ⓗ
-  Noprefixab \(i)          ⓘ
-  Noprefixab \(j)          ⓙ
-  Noprefixab \(k)          ⓚ
-  Noprefixab \(l)          ⓛ
-  Noprefixab \(m)          ⓜ
-  Noprefixab \(n)          ⓝ
-  Noprefixab \(o)          ⓞ
-  Noprefixab \(p)          ⓟ
-  Noprefixab \(q)          ⓠ
-  Noprefixab \(r)          ⓡ
-  Noprefixab \(s)          ⓢ
-  Noprefixab \(t)          ⓣ
-  Noprefixab \(u)          ⓤ
-  Noprefixab \(v)          ⓥ
-  Noprefixab \(w)          ⓦ
-  Noprefixab \(x)          ⓧ
-  Noprefixab \(y)          ⓨ
-  Noprefixab \(z)          ⓩ
-  " }}}
-  " }}}
 endfunction
 command! Unicoder call s:setup_abbreviations()
